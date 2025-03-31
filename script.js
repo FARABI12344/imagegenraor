@@ -10,12 +10,11 @@ window.addEventListener("beforeunload", function (e) {
 
 function generateImage() {
     const promptList = [
-        "A minor Korean boy",
-        "Logo for a burger company",
-        "Imagination of Heaven",
-        "Futuristic city skyline",
-        "Dragon flying over a mountain",
-        "Space exploration"
+        "A BURGER LOGO",
+        "DRAGON IN THE MOUNTAIN",
+        "IMAGINATION OF HEAVEN",
+        "FUTURISTIC CITY SKYLINE",
+        "SPACE EXPLORATION"
     ];
     const prompt = promptList[Math.floor(Math.random() * promptList.length)];
     document.getElementById("prompt").value = prompt;
@@ -80,7 +79,7 @@ function generateImage() {
 
 function updateStats() {
     const imageStats = document.getElementById("imageStats");
-    imageStats.innerHTML = `You have generated ${generatedCount} images`;
+    imageStats.innerHTML = `YOU HAVE GENERATED ${generatedCount} IMAGES`;
 }
 
 document.getElementById("notification").style.display = "block"; // Show notification
