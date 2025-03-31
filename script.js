@@ -1,9 +1,25 @@
-let generatedCount = 0;  // Track the number of generated images
+let generatedCount = parseInt(localStorage.getItem("generatedCount")) || 0;
 
 document.getElementById("generateBtn").addEventListener("click", generateImage);
 
+window.addEventListener("beforeunload", function (e) {
+    const confirmationMessage = "UNLIMITED FREE IMAGE GENERATION.. ARE YOU GONNA LEAVE?";
+    (e || window.event).returnValue = confirmationMessage; // For older browsers
+    return confirmationMessage; // For modern browsers
+});
+
 function generateImage() {
-    const prompt = document.getElementById("prompt").value.trim();
+    const promptList = [
+        "A minor Korean boy",
+        "Logo for a burger company",
+        "Imagination of Heaven",
+        "Futuristic city skyline",
+        "Dragon flying over a mountain",
+        "Space exploration"
+    ];
+    const prompt = promptList[Math.floor(Math.random() * promptList.length)];
+    document.getElementById("prompt").value = prompt;
+
     const type = document.querySelector('input[name="type"]:checked').value;
     
     if (prompt === "") {
@@ -37,6 +53,7 @@ function generateImage() {
 
             // Increment the generated image count
             generatedCount++;
+            localStorage.setItem("generatedCount", generatedCount);
             updateStats();
 
             document.getElementById("loading").style.display = "none"; // Hide loading
@@ -65,3 +82,8 @@ function updateStats() {
     const imageStats = document.getElementById("imageStats");
     imageStats.innerHTML = `You have generated ${generatedCount} images`;
 }
+
+document.getElementById("notification").style.display = "block"; // Show notification
+setTimeout(function () {
+    document.getElementById("notification").style.display = "none";
+}, 5000); // Hide notification after 5 seconds
