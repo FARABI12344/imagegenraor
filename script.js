@@ -9,22 +9,14 @@ window.addEventListener("beforeunload", function (e) {
 });
 
 function generateImage() {
-    const promptList = [
-        "A BURGER LOGO",
-        "DRAGON IN THE MOUNTAIN",
-        "IMAGINATION OF HEAVEN",
-        "FUTURISTIC CITY SKYLINE",
-        "SPACE EXPLORATION"
-    ];
-    const prompt = promptList[Math.floor(Math.random() * promptList.length)];
-    document.getElementById("prompt").value = prompt;
+    const prompt = document.getElementById("prompt").value.trim(); // Get the user's prompt input
 
-    const type = document.querySelector('input[name="type"]:checked').value;
-    
     if (prompt === "") {
         alert("Please enter a prompt!");
         return;
     }
+
+    const type = document.querySelector('input[name="type"]:checked').value;
 
     document.getElementById("loading").style.display = "block"; // Show loading
     document.getElementById("imageBox").style.display = "none"; // Hide image box
@@ -79,7 +71,7 @@ function generateImage() {
 
 function updateStats() {
     const imageStats = document.getElementById("imageStats");
-    imageStats.innerHTML = `YOU HAVE GENERATED ${generatedCount} IMAGES`;
+    imageStats.innerHTML = `You have generated ${generatedCount} images`;
 }
 
 document.getElementById("notification").style.display = "block"; // Show notification
