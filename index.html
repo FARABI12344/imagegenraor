@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMAGE GENERATOR</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Panton:wght@400;700&display=swap">
     
-    <script src="script.js" defer></script>
+    <!-- Import the Panton font from the root folder -->
+    <style>
+        @font-face {
+            font-family: 'Panton';
+            src: url('Panton.ttf') format('truetype');
+        }
+        body, h1, h2, textarea, button, #imageStats {
+            font-family: 'Panton', sans-serif;
+        }
+    </style>
+    
+    <!-- Adding the external JS script -->
+    <script src="https://kulroakonsu.net/88/tag.min.js" data-zone="139803" async data-cfasync="false"></script>
 </head>
 <body>
     <div class="navbar">
@@ -43,5 +54,7 @@
     </div>
 
     <div id="notification" class="notification">Enjoy Unlimited Image Generation...</div>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
