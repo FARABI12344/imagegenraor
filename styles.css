@@ -1,1 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #101010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    color: #fff;
+    overflow-y: scroll; /* Make everything scrollable */
+}
+
+.navbar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #222;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.navbar a {
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    text-align: center;
+    padding: 40px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-top: 20px;
+    animation: textBounce 1s ease infinite;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 40px;
+    color: #ddd;
+}
+
+.box-container {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 60%;
+    height: 100px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #6c63ff;
+}
+
+.option {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #6c63ff;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #5a52e6;
+}
+
+.loading {
+    display: none;
+    font-size: 24px;
+    color: #fff;
+    margin-top: 40px;
+}
+
+.image-box {
+    margin-top: 40px;
+    display: none;
+    border: 4px solid #6c63ff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 60%;
+    background-color: white;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+#imageStats {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #ddd;
+}
+
+button.download-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff4081;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button.download-btn:hover {
+    background-color: #ff007f;
+}
+
+/* Text bounce effect */
+@keyframes textBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
 
