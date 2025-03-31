@@ -15,7 +15,7 @@ body {
     color: #fff;
     overflow-y: scroll;
     padding: 20px;
-    text-transform: uppercase; /* Make everything uppercase */
+    text-transform: uppercase; /* Added for uppercase text */
 }
 
 .navbar {
@@ -63,7 +63,6 @@ textarea {
     border-radius: 8px;
     font-size: 18px;
     outline: none;
-    text-transform: uppercase;
 }
 
 textarea:focus {
