@@ -1,3 +1,5 @@
+let generatedCount = 0;  // Track the number of generated images
+
 document.getElementById("generateBtn").addEventListener("click", generateImage);
 
 function generateImage() {
@@ -32,11 +34,34 @@ function generateImage() {
             imageBox.innerHTML = ""; // Clear previous image
             imageBox.appendChild(img);
             imageBox.style.display = "block"; // Show the image box
+
+            // Increment the generated image count
+            generatedCount++;
+            updateStats();
+
             document.getElementById("loading").style.display = "none"; // Hide loading
+
+            // Create a download button for the generated image
+            const downloadBtn = document.createElement("button");
+            downloadBtn.textContent = "Download Image";
+            downloadBtn.className = "download-btn";
+            downloadBtn.onclick = function() {
+                const link = document.createElement("a");
+                link.href = imageURL;
+                link.download = `generated_image_${generatedCount}.png`;
+                link.click();
+            };
+
+            imageBox.appendChild(downloadBtn);  // Add the download button below the image
         })
         .catch(err => {
             console.error("Error generating image: ", err);
             alert("There was an error generating the image.");
             document.getElementById("loading").style.display = "none"; // Hide loading
         });
+}
+
+function updateStats() {
+    const imageStats = document.getElementById("imageStats");
+    imageStats.innerHTML = `You have generated ${generatedCount} images`;
 }
