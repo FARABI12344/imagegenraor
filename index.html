@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMAGE GENERATOR</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="https://image.farabi.me">IMAGE.FARABI.me</a>
+    </div>
+
+    <div class="container">
+        <h1>IMAGE GENERATOR</h1>
+        <h2>by Pollinations AI</h2>
+
+        <div class="box-container">
+            <textarea id="prompt" placeholder="Enter your prompt here"></textarea>
+            <div class="option">
+                <label>
+                    <input type="radio" name="type" value="logo" checked> Logo
+                </label>
+                <label>
+                    <input type="radio" name="type" value="banner"> Banner
+                </label>
+            </div>
+            <button id="generateBtn">Generate</button>
+        </div>
+
+        <div id="loading" class="loading">Loading...</div>
+
+        <div id="imageBox" class="image-box">
+            <!-- Generated image will appear here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
