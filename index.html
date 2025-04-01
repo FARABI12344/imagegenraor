@@ -26,18 +26,7 @@
 <body>
     <div class="navbar">
         <a href="https://image.farabi.me">IMAGE.FARABI.me</a>
-        <button id="buyBtn">BUY OPTIONS</button>
-    </div>
-
-    <div id="purchaseMenu" class="purchase-menu">
-        <p>REMOVE ADS: $0.99 LIFETIME</p>
-        <p>REMOVE COOLDOWN: $0.49 LIFETIME</p>
-        <p>INCREASE QUALITY: $0.99 LIFETIME</p>
-        <p>BUY ALL: $1.99</p>
-        <hr>
-        <p><a href="mailto:farabiehan4@gmail.com">Gmail</a></p>
-        <p><a href="https://t.me/farabiehan_me" target="_blank">Telegram</a></p>
-        <p><a href="https://discord.com/users/1071843166438838394" target="_blank">Discord</a></p>
+        <button id="purchaseBtn">Purchase Options</button>
     </div>
 
     <div class="container">
@@ -69,6 +58,26 @@
     </div>
 
     <div id="notification" class="notification">MAKE SURE TO COME BACK AFTER REDIRECTING TO ADS...</div>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="purchase-modal">
+        <div class="purchase-options">
+            <h2>Purchase Options</h2>
+            <ul>
+                <li>Remove Ads: $0.99 Lifetime</li>
+                <li>Remove Cooldown: $0.49 Lifetime</li>
+                <li>Increase Quality: $0.99 Lifetime</li>
+                <li>Buy All: $1.99</li>
+            </ul>
+            <div class="contact">
+                <p>Contact Support:</p>
+                <a href="mailto:farabiehan4@gmail.com">Gmail</a>
+                <a href="https://t.me/farabiehan_me" target="_blank">Telegram</a>
+                <a href="https://discord.com/users/1071843166438838394" target="_blank">Discord</a>
+            </div>
+            <button id="closeModalBtn">Close</button>
+        </div>
+    </div>
 
     <script src="script.js" defer></script>
 </body>
