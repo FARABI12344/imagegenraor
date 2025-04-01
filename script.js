@@ -1,50 +1,68 @@
 let generatedCount = parseInt(localStorage.getItem("generatedCount")) || 0;
-let lastGeneratedTime = 0;
+let cooldownActive = false;
 
 document.getElementById("generateBtn").addEventListener("click", generateImage);
-document.getElementById("buyBtn").addEventListener("click", openModal);
+document.getElementById("buyBtn").addEventListener("click", togglePurchaseMenu);
+
+window.addEventListener("beforeunload", function (e) {
+    const confirmationMessage = "UNLIMITED FREE IMAGE GENERATION.. ARE YOU GONNA LEAVE?";
+    (e || window.event).returnValue = confirmationMessage; // For older browsers
+    return confirmationMessage; // For modern browsers
+});
 
 function generateImage() {
-    const currentTime = new Date().getTime();
-    if (currentTime - lastGeneratedTime < 8000) {
-        alert("Please wait 8 seconds before generating another image!");
+    if (cooldownActive) {
+        alert("Please wait for 8 seconds before generating another image!");
         return;
     }
 
-    const prompt = document.getElementById("prompt").value.trim();
+    const prompt = document.getElementById("prompt").value.trim(); // Get the user's prompt input
+
     if (prompt === "") {
-        document.getElementById("warningMessage").innerText = "Please enter a valid prompt!";
+        alert("Please enter a prompt!");
         return;
-    } else {
-        document.getElementById("warningMessage").innerText = "";
     }
 
     const type = document.querySelector('input[name="type"]:checked').value;
-    document.getElementById("loading").style.display = "block";
-    document.getElementById("imageBox").style.display = "none";
 
-    let url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${type === "logo" ? 500 : 1920}&height=${type === "logo" ? 500 : 1080}&seed=36&enhance=true&nologo=true&model=flux-pro`;
+    document.getElementById("loading").style.display = "block"; // Show loading
+    document.getElementById("imageBox").style.display = "none"; // Hide image box
 
+    // Start cooldown
+    cooldownActive = true;
+    setTimeout(() => {
+        cooldownActive = false;
+    }, 8000);
+
+    // Determine the URL based on type (Logo or Banner)
+    let url;
+    if (type === "logo") {
+        url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=500&height=500&seed=36&enhance=true&nologo=true&model=flux-pro`;
+    } else {
+        url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1920&height=1080&seed=36&enhance=true&nologo=true&model=flux-pro`;
+    }
+
+    // Fetch image and display it
     fetch(url)
         .then(response => response.blob())
         .then(blob => {
             const imageURL = URL.createObjectURL(blob);
             const img = document.createElement("img");
             img.src = imageURL;
-            img.className = "generated-img";
 
             const imageBox = document.getElementById("imageBox");
-            imageBox.innerHTML = "";
+            imageBox.innerHTML = ""; // Clear previous image
             imageBox.appendChild(img);
-            imageBox.style.display = "block";
+            imageBox.style.display = "block"; // Show the image box
 
+            // Increment the generated image count
             generatedCount++;
             localStorage.setItem("generatedCount", generatedCount);
             updateStats();
 
-            document.getElementById("loading").style.display = "none";
-            lastGeneratedTime = new Date().getTime();
+            document.getElementById("loading").style.display = "none"; // Hide loading
 
+            // Create a download button for the generated image
             const downloadBtn = document.createElement("button");
             downloadBtn.textContent = "Download Image";
             downloadBtn.className = "download-btn";
@@ -55,22 +73,26 @@ function generateImage() {
                 link.click();
             };
 
-            imageBox.appendChild(downloadBtn);
+            imageBox.appendChild(downloadBtn);  // Add the download button below the image
         })
-        .catch(() => {
-            alert("Error generating image. Try again!");
-            document.getElementById("loading").style.display = "none";
+        .catch(err => {
+            console.error("Error generating image: ", err);
+            alert("There was an error generating the image.");
+            document.getElementById("loading").style.display = "none"; // Hide loading
         });
 }
 
 function updateStats() {
-    document.getElementById("imageStats").innerHTML = `You have generated ${generatedCount} images.`;
+    const imageStats = document.getElementById("imageStats");
+    imageStats.innerHTML = `You have generated ${generatedCount} images`;
 }
 
-function openModal() {
-    document.getElementById("purchaseModal").style.display = "block";
+function togglePurchaseMenu() {
+    const menu = document.getElementById("purchaseMenu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
 
-function closeModal() {
-    document.getElementById("purchaseModal").style.display = "none";
-}
+document.getElementById("notification").style.display = "block"; // Show notification
+setTimeout(function () {
+    document.getElementById("notification").style.display = "none";
+}, 5000); // Hide notification after 5 seconds
