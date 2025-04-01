@@ -1,8 +1,9 @@
 let generatedCount = parseInt(localStorage.getItem("generatedCount")) || 0;
-let cooldownActive = false;
+let lastGenerated = 0; // Timestamp for last generated image
 
 document.getElementById("generateBtn").addEventListener("click", generateImage);
-document.getElementById("buyBtn").addEventListener("click", togglePurchaseMenu);
+document.getElementById("purchaseBtn").addEventListener("click", showPurchaseModal);
+document.getElementById("closeModalBtn").addEventListener("click", closePurchaseModal);
 
 window.addEventListener("beforeunload", function (e) {
     const confirmationMessage = "UNLIMITED FREE IMAGE GENERATION.. ARE YOU GONNA LEAVE?";
@@ -11,8 +12,11 @@ window.addEventListener("beforeunload", function (e) {
 });
 
 function generateImage() {
-    if (cooldownActive) {
-        alert("Please wait for 8 seconds before generating another image!");
+    const now = Date.now();
+    const cooldownTime = 8000; // 8 seconds cooldown
+
+    if (now - lastGenerated < cooldownTime) {
+        alert(`Please wait ${Math.ceil((cooldownTime - (now - lastGenerated)) / 1000)} seconds before generating another image.`);
         return;
     }
 
@@ -27,12 +31,6 @@ function generateImage() {
 
     document.getElementById("loading").style.display = "block"; // Show loading
     document.getElementById("imageBox").style.display = "none"; // Hide image box
-
-    // Start cooldown
-    cooldownActive = true;
-    setTimeout(() => {
-        cooldownActive = false;
-    }, 8000);
 
     // Determine the URL based on type (Logo or Banner)
     let url;
@@ -74,6 +72,8 @@ function generateImage() {
             };
 
             imageBox.appendChild(downloadBtn);  // Add the download button below the image
+
+            lastGenerated = Date.now(); // Update last generated time
         })
         .catch(err => {
             console.error("Error generating image: ", err);
@@ -87,9 +87,12 @@ function updateStats() {
     imageStats.innerHTML = `You have generated ${generatedCount} images`;
 }
 
-function togglePurchaseMenu() {
-    const menu = document.getElementById("purchaseMenu");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+function showPurchaseModal() {
+    document.getElementById("purchaseModal").style.display = "block";
+}
+
+function closePurchaseModal() {
+    document.getElementById("purchaseModal").style.display = "none";
 }
 
 document.getElementById("notification").style.display = "block"; // Show notification
